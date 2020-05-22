@@ -1,0 +1,22 @@
+{% extends 'basic_app/base.html' %}
+<!--{% load staticfiles % will not work you must use the one below-->
+{% load static %}
+{% block body_block%}
+<div class="jumbotron">
+    {% if is_registered %}
+        <h1>Thank you for registering!</h1>
+    {% else %}
+        <h1>Register Here!</h1>
+        <h3>Fill out the form:</h3>
+        <form enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+<!--            the below user_form, and profile_form will be found in the context dictionary in the views.py file-->
+<!--            the way this works is the views.py file points to the registration.html file so when this html file goes looking -->
+<!--            for user_form, and profile_form it knows to check the views, then the context dictionary-->
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+            <input type="submit" value="Register">
+        </form>
+    {% endif %}
+</div>
+{% endblock %}
